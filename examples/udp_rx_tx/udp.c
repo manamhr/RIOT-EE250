@@ -237,7 +237,7 @@ void print_rss(msg_t *msg)
         */
 
             
-            printf("RSSI is in %d", hdr-> rssi-CC2538_RSSI_OFFSET); 
+            printf("RSSI is in %d", hdr->rssi - CC2538_RSSI_OFFSET); 
 
         /* Tell GNRC you are done with this packet so it can release the memory */
         gnrc_pktbuf_release(pkt);
@@ -253,6 +253,7 @@ void print_prr(uint32_t pkt_rcv, uint32_t num_pkts)
      * of packets you actually received. Calculate the Packet Reception Ratio 
      * and print it out 
      */
+    printf("Packet Reception Ratio is %.2f", pkt_rcv/num_pkts)
     
 
 }
