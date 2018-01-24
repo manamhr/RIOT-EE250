@@ -253,7 +253,7 @@ void print_prr(uint32_t pkt_rcv, uint32_t num_pkts)
      * of packets you actually received. Calculate the Packet Reception Ratio 
      * and print it out 
      */
-    printf("Packet Reception Ratio is %.2f", pkt_rcv/num_pkts)
+    printf("Packet Reception Ratio is %.2f", pkt_rcv/num_pkts);
     
 
 }
