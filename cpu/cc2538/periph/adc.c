@@ -24,6 +24,7 @@
 #include "cpu.h"
 #include "periph_conf.h"
 #include "periph_cpu.h"
+#include "gpio.h"
 #include "periph/adc.h"
 
 #define ENABLE_DEBUG (0)
@@ -44,6 +45,8 @@ int adc_init(adc_t line)
     /* configure ADC GPIO as analog input */
     gpio_init(adc_config[line], GPIO_IN_ANALOG);
 
+    gpio_init(GPIO(PORT_D,2), GPIO_OUT);
+    
     return 0;
 }
 
@@ -101,6 +104,8 @@ int adc_sample(adc_t line, adc_res_t res)
     if (sample < 0) {
         sample = 0;
     }
+    gpio_set(GPIO(PORT_D,2));
+    gpio_clear(GPIO(PORT_D,2));
 
     return (int)sample;
 }

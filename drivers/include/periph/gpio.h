@@ -147,7 +147,6 @@ typedef struct {
  * @return              -1 on error
  */
 int gpio_init(gpio_t pin, gpio_mode_t mode);
-
 /**
  * @brief   Initialize a GPIO pin for external interrupt usage
  *
