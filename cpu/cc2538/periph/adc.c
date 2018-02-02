@@ -24,7 +24,7 @@
 #include "cpu.h"
 #include "periph_conf.h"
 #include "periph_cpu.h"
-#include "gpio.h"
+#include "periph/gpio.h"
 #include "periph/adc.h"
 
 #define ENABLE_DEBUG (0)
