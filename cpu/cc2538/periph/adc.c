@@ -45,7 +45,7 @@ int adc_init(adc_t line)
     /* configure ADC GPIO as analog input */
     gpio_init(adc_config[line], GPIO_IN_ANALOG);
 
-    gpio_init(GPIO(PORT_D,2), GPIO_OUT);
+    gpio_init(GPIO_PIN(PORT_D,2), GPIO_OUT);
     
     return 0;
 }
@@ -80,6 +80,7 @@ int adc_sample(adc_t line, adc_res_t res)
 
     cc2538_soc_adc_t *adca = SOC_ADC;
     /* configure adc line with parameters and trigger a single conversion*/
+    gpio_set(GPIO_PIN(PORT_D,2));
     uint32_t reg = (adca->ADCCON3) & ~(SOC_ADC_ADCCON3_EREF |
                                        SOC_ADC_ADCCON3_EDIV |
                                        SOC_ADC_ADCCON3_ECH);
@@ -93,6 +94,8 @@ int adc_sample(adc_t line, adc_res_t res)
     while ((adca->cc2538_adc_adccon1.ADCCON1 &
             SOC_ADC_ADCCON1_EOC_MASK) == 0) {}
 
+    gpio_clear(GPIO_PIN(PORT_D,2));
+
     /* Read result after conversion completed,
      * reading SOC_ADC_ADCH last will clear SOC_ADC_ADCCON1.EOC */
     int16_t sample = adca->ADCL & SOC_ADC_ADCL_MASK;
@@ -104,8 +107,8 @@ int adc_sample(adc_t line, adc_res_t res)
     if (sample < 0) {
         sample = 0;
     }
-    gpio_set(GPIO(PORT_D,2));
-    gpio_clear(GPIO(PORT_D,2));
+    
+    
 
     return (int)sample;
 }
