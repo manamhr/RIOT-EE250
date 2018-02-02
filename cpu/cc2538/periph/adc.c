@@ -80,10 +80,11 @@ int adc_sample(adc_t line, adc_res_t res)
 
     cc2538_soc_adc_t *adca = SOC_ADC;
     /* configure adc line with parameters and trigger a single conversion*/
-    gpio_set(GPIO_PIN(PORT_D,2));
+    
     uint32_t reg = (adca->ADCCON3) & ~(SOC_ADC_ADCCON3_EREF |
                                        SOC_ADC_ADCCON3_EDIV |
                                        SOC_ADC_ADCCON3_ECH);
+    gpio_set(GPIO_PIN(PORT_D,2));
     adca->ADCCON3 = reg | res | SOC_ADC_ADCCON_REF |
                     (adc_config[line] & GPIO_PIN_MASK);
 
